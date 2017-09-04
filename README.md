@@ -2,7 +2,7 @@
 
 1. Begin by running OpenSWATH on the dataset of mzXML or mzML files. To run OpenSWATH, build OpenMS and run OpenSwathWorkflow -
 
-#####Convert all mzXML to mzML -
+##### Convert all mzXML to mzML -
 
 ```
 for file in /mnt/ds3lab/tiannan/ppp1/mzXML_files/*
@@ -11,7 +11,7 @@ FileConverter -in $file -out /mnt/ds3lab/tiannan/ppp1/mzML_converted_3/$(basenam
 done
 ```
 
-#####Run OpenSwathWorkflow on all mzXML files - 
+##### Run OpenSwathWorkflow on all mzXML files - 
 
 ```
 for file in /mnt/ds3lab/tiannan/ppp1/mzXML_files/*
@@ -20,7 +20,7 @@ do
 done
 ```
 
-#####Run OpenSwathWorkflow on all mzML files - 
+##### Run OpenSwathWorkflow on all mzML files - 
 
 
 ```
@@ -36,7 +36,7 @@ Where -tr_irt refers to the iRT library and -tr refers to the Retention Time Lib
 
 2. Following the generation of the TSV and CHROM files, run pyProphet to get scores for the peak groups selected by OpenSwath -
 
-#####Pyprophet-cli commands -
+##### Pyprophet-cli commands -
 
 ```
 pyprophet-cli prepare --data-folder="/tmp/openswath_results/" --data-filename-pattern="*.tsv" \
@@ -73,7 +73,7 @@ pyprophet-cli score --data-folder="/tmp/openswath_results/" --data-filename-patt
 
 3. With the scores at hand, the peptide peak groups can now be extracted. The lower the m_score, the higher the rank assigned to a particular peak group. 
 
-The data_peptide_complete.zip file contains all the extracted data needed to reconstruct a peak group, where each tuple is of the form (File Name, Peptide Group Label, Peptide ID, Start Time, Stop time, [Retention Time over ALL peak groups for that Peptide Group], [Intensity over ALL peak groups for that Peptide Group])
+The data_peptide_complete.zip file located in `/mnt/ds3lab/balasubp` contains all the extracted data needed to reconstruct a peak group, where each tuple is of the form (File Name, Peptide Group Label, Peptide ID, Start Time, Stop time, [Retention Time over ALL peak groups for that Peptide Group], [Intensity over ALL peak groups for that Peptide Group])
 
 To get the values of intensity/RT for that particular peak group, the peak_fragment_annotation column has to be matched against the chrom.mzML output of OpenSwath and the binary data decoded for that fragment and plotted over the entire window. This is repeated for the peptide group and all fragments. Once the entire set of peak groups have been plotted, each peak group is selected individually by cutting the graph at the rightWidth and leftWidth portion. This is repeated for all peak groups across all swath files.
 
